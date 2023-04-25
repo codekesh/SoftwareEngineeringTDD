@@ -20,7 +20,7 @@ test('Initializes empty form', async () => {
     expect(submitButton).toBeDisabled('')
 });
 
-test('Disable submit button until form is valid', () => {
+test('Enable submit button until form is valid', () => {
     render(<ContactModal />);
     const nameInput = screen.queryByPlaceholderText('Name');
     const phoneInput = screen.queryByPlaceholderText('Phone Number');
