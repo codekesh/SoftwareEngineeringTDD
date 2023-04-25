@@ -1,5 +1,6 @@
+import { ContactModal } from "ContactModel";
 export const App = () => {
   return(
-    <> Hello World</>
+   <ContactModal/>
   );
 }
