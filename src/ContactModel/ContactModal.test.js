@@ -53,3 +53,32 @@ test('Disable submit button until fields are invalid', () => {
     fireEvent.change(phoneInput, { target: { value: '7733041963' } })
     expect(submitButton).toBeDisabled()
 });
+
+test('Displays error messages for invalid inputs', () => {
+    render(<ContactModal />);
+
+    const nameInput = screen.getByPlaceholderText('Name');
+    const phoneInput = screen.getByPlaceholderText('Phone Number');
+    const emailInput = screen.getByPlaceholderText('Email Address');
+
+    fireEvent.change(nameInput, { target: { value: 'Codekesh' } });
+    fireEvent.change(phoneInput, { target: { value: '773-304-1963' } });
+    fireEvent.change(emailInput, { target: { value: 'portexeofficial' } });
+
+    let errorDiv = screen.queryByTestId('error');
+    expect(errorDiv).toHaveTextContent('Please enter email format correctly');
+
+    fireEvent.change(phoneInput, { target: { value: '773041963' } });
+    fireEvent.change(emailInput, { target: { value: 'keshavradhika1823@gmail.com' } });
+
+    errorDiv = screen.queryByTestId('error');
+    expect(errorDiv).toHaveTextContent(
+        'Please enter phone format correctly',
+    );
+
+    fireEvent.change(phoneInput, { target: { value: '773-304-1963' } });
+
+    errorDiv = screen.queryByTestId('error');
+    expect(errorDiv).not.toBeInTheDocument();
+
+})
