@@ -28,7 +28,7 @@ test('Enable submit button until form is valid', () => {
     const submitButton = screen.getByText('Submit');
 
     fireEvent.change(nameInput, { target: { value: 'Codekesh' } })
-    fireEvent.change(phoneInput, { target: { value: '7733041963' } })
+    fireEvent.change(phoneInput, { target: { value: '773-304-1963' } })
     fireEvent.change(emailInput, { target: { value: '201117@iiitt.ac.in' } })
 
     expect(submitButton).not.toBeDisabled()
