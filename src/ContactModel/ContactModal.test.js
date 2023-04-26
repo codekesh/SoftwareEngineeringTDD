@@ -5,9 +5,9 @@ afterEach(cleanup)
 
 test('Initializes empty form', async () => {
     render(<ContactModal />);
-    const nameInput = screen.queryByPlaceholderText('Name');
-    const phoneInput = screen.queryByPlaceholderText('Phone Number');
-    const emailInput = screen.queryByPlaceholderText('Email Address');
+    const nameInput = screen.getByPlaceholderText('Name');
+    const phoneInput = screen.getByPlaceholderText('Phone Number');
+    const emailInput = screen.getByPlaceholderText('Email Address');
     const submitButton = screen.getByText('Submit');
 
     expect(nameInput).toBeInTheDocument()
@@ -22,9 +22,9 @@ test('Initializes empty form', async () => {
 
 test('Enable submit button until form is valid', () => {
     render(<ContactModal />);
-    const nameInput = screen.queryByPlaceholderText('Name');
-    const phoneInput = screen.queryByPlaceholderText('Phone Number');
-    const emailInput = screen.queryByPlaceholderText('Email Address');
+    const nameInput = screen.getByPlaceholderText('Name');
+    const phoneInput = screen.getByPlaceholderText('Phone Number');
+    const emailInput = screen.getByPlaceholderText('Email Address');
     const submitButton = screen.getByText('Submit');
 
     fireEvent.change(nameInput, { target: { value: 'Codekesh' } })
@@ -36,9 +36,9 @@ test('Enable submit button until form is valid', () => {
 
 test('Disable submit button until fields are invalid', () => {
     render(<ContactModal />);
-    const nameInput = screen.queryByPlaceholderText('Name');
-    const phoneInput = screen.queryByPlaceholderText('Phone Number');
-    const emailInput = screen.queryByPlaceholderText('Email Address');
+    const nameInput = screen.getByPlaceholderText('Name');
+    const phoneInput = screen.getByPlaceholderText('Phone Number');
+    const emailInput = screen.getByPlaceholderText('Email Address');
     const submitButton = screen.getByText('Submit');
 
     fireEvent.change(nameInput, { target: { value: 'Codekesh' } })
@@ -80,5 +80,30 @@ test('Displays error messages for invalid inputs', () => {
 
     errorDiv = screen.queryByTestId('error');
     expect(errorDiv).not.toBeInTheDocument();
-
 })
+
+test('Prevents submit function from being called if invalid', () => {
+    const onSubmit = jest.fn()
+
+    render(<ContactModal submit={onSubmit} />);
+    const nameInput = screen.getByPlaceholderText('Name');
+    const phoneInput = screen.getByPlaceholderText('Phone Number');
+    const emailInput = screen.getByPlaceholderText('Email Address');
+    const submitButton = screen.getByText('Submit');
+    const form = screen.getByTestId('contact-modal-form')
+
+    fireEvent.change(nameInput, { target: { value: 'Codekesh' } })
+    fireEvent.change(phoneInput, { target: { value: '773-304-1963' } })
+    fireEvent.change(emailInput, { target: { value: 'keshavradhika1823' } })
+
+    expect(submitButton).toBeDisabled()
+
+    fireEvent.submit(form)
+    expect(onSubmit).not.toHaveBeenCalled();
+
+    fireEvent.change(emailInput, { target: { value: 'keshavradhika1823@gmail.com' } })
+    expect(submitButton).not.toBeDisabled()
+
+    fireEvent.submit(form)
+    expect(onSubmit).toHaveBeenCalled();
+});

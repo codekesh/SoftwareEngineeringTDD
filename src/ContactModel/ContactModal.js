@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import styles from "./styles.module.css"
 
-export const ContactModal = () => {
+export const ContactModal = ({ submit }) => {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
@@ -10,14 +10,14 @@ export const ContactModal = () => {
     const [phoneError, setPhoneError] = useState('')
     const [emailError, setEmailError] = useState('')
 
-
     const [isVaild, setIsValid] = useState(false)
 
-    useEffect((submit) => {
+    useEffect(() => {
+        setNameError('')
+        setPhoneError('')
+        setEmailError('')
+
         let _valid = (() => {
-            setNameError('')
-            setPhoneError('')
-            setEmailError('')
             if (!name) {
                 setNameError('Name is required')
                 return false
@@ -48,14 +48,14 @@ export const ContactModal = () => {
 
     return (
         <div className={styles.main}>
-            <form onSubmit={e => {
-                e.preventDefault();
-                if (isValid) {
-                    submit();
-                } else {
-
-                }
-            }}>
+            <form
+                data-testid='contact-modal-form'
+                onSubmit={e => {
+                    e.preventDefault();
+                    if (isValid) {
+                        submit();
+                    }
+                }}>
                 <div>
                     <input
                         required
