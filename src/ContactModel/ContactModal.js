@@ -10,7 +10,7 @@ export const ContactModal = ({ submit }) => {
     const [phoneError, setPhoneError] = useState('')
     const [emailError, setEmailError] = useState('')
 
-    const [isVaild, setIsValid] = useState(false)
+    const [isValid, setIsValid] = useState(false)
 
     useEffect(() => {
         setNameError('')
@@ -83,7 +83,7 @@ export const ContactModal = ({ submit }) => {
                     />
                     {!!emailError && <div data-testid='error' className={styles.error}>{emailError}</div>}
                 </div>
-                <button disabled={!isVaild}>Submit</button>
+                <button disabled={!isValid}>Submit</button>
             </form>
         </div>
     )
