@@ -18,6 +18,8 @@ test('Initializes empty form', async () => {
     expect(phoneInput).toHaveValue('')
     expect(emailInput).toHaveValue('')
     expect(submitButton).toBeDisabled('')
+
+    expect(screen.queryByTestId('error')).not.toBeInTheDocument();
 });
 
 test('Enable submit button until form is valid', () => {
@@ -28,8 +30,13 @@ test('Enable submit button until form is valid', () => {
     const submitButton = screen.getByText('Submit');
 
     fireEvent.change(nameInput, { target: { value: 'Codekesh' } })
+    expect(screen.queryByTestId('error')).not.toBeInTheDocument();
+    
     fireEvent.change(phoneInput, { target: { value: '773-304-1963' } })
+    expect(screen.queryByTestId('error')).not.toBeInTheDocument();
+
     fireEvent.change(emailInput, { target: { value: 'keshavradhika1823@gmail.com' } })
+    expect(screen.queryByTestId('error')).not.toBeInTheDocument();
 
     expect(submitButton).not.toBeDisabled()
 });

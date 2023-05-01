@@ -12,7 +12,11 @@ export const ContactModal = ({ submit }) => {
 
     const [isValid, setIsValid] = useState(false)
 
+    const [formDirty, setformDirty] = useState(false);
     useEffect(() => {
+        if (!formDirty) {
+            return;
+        }
         setNameError('')
         setPhoneError('')
         setEmailError('')
@@ -44,7 +48,7 @@ export const ContactModal = ({ submit }) => {
         })();
 
         setIsValid(_valid)
-    }, [name, phone, email])
+    }, [name, phone, email, formDirty])
 
     return (
         <div className={styles.main}>
@@ -61,7 +65,10 @@ export const ContactModal = ({ submit }) => {
                         required
                         value={name}
                         placeholder="Name"
-                        onChange={e => setName(e.target.value)}
+                        onChange={e => {
+                            setformDirty(true)
+                            setName(e.target.value)
+                        }}
                     />
                     {!!nameError && <div data-testid='error' className={styles.error}>{nameError}</div>}
                 </div>
@@ -70,7 +77,10 @@ export const ContactModal = ({ submit }) => {
                         required
                         value={phone}
                         placeholder="Phone Number"
-                        onChange={e => setPhone(e.target.value)}
+                        onChange={e => {
+                            setformDirty(true)
+                            setPhone(e.target.value)
+                        }}
                     />
                     {!!phoneError && <div data-testid='error' className={styles.error}>{phoneError}</div>}
                 </div>
@@ -79,7 +89,10 @@ export const ContactModal = ({ submit }) => {
                         required
                         value={email}
                         placeholder="Email Address"
-                        onChange={e => setEmail(e.target.value)}
+                        onChange={e => {
+                            setformDirty(true)
+                            setEmail(e.target.value)
+                        }}
                     />
                     {!!emailError && <div data-testid='error' className={styles.error}>{emailError}</div>}
                 </div>
