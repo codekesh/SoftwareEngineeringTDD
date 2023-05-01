@@ -47,3 +47,24 @@ test('Calls the edit function when edit button is clicked', () => {
 
   expect(editFn).toHaveBeenCalledWith(0);
 });
+test('Calls the delete function when delete button is clicked', () => {
+  const contacts = [
+    {
+      name: 'Joe',
+      email: 'test123@gmail.com',
+      phone: '987-654-3210',
+    },
+  ];
+
+  const deleteFn = jest.fn();
+
+  render(
+    <ContactList contacts={contacts} onDeleteClick={deleteFn} />,
+  );
+
+  const deleteBtnJoe = screen.getByTestId('delete-btn-0');
+
+  fireEvent.click(deleteBtnJoe);
+
+  expect(deleteFn).toHaveBeenCalledWith(0);
+});
