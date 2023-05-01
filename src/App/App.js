@@ -1,6 +1,6 @@
 import { ContactModal } from "ContactModel";
 export const App = () => {
   return (
-    <ContactModal />
+    <ContactModal submit={() => alert('Submitted')} />
   );
 }
