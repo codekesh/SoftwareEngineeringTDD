@@ -54,3 +54,26 @@ test('Shows contact modal when add contact button is clicked', () => {
     screen.queryByTestId('contact-modal-form'),
   ).toBeInTheDocument();
 });
+test('Hides contact modal when cancel button is clicked', () => {
+    render(<App />);
+  
+    expect(
+      screen.queryByTestId('contact-modal-form'),
+    ).not.toBeInTheDocument();
+  
+    const addContactBtn = screen.getByTestId('add-contact-btn');
+  
+    fireEvent.click(addContactBtn);
+  
+    expect(
+      screen.queryByTestId('contact-modal-form'),
+    ).toBeInTheDocument();
+  
+    const cancelBtn = screen.getByText('Cancel');
+  
+    fireEvent.click(cancelBtn);
+  
+    expect(
+      screen.queryByTestId('contact-modal-form'),
+    ).not.toBeInTheDocument();
+  });
