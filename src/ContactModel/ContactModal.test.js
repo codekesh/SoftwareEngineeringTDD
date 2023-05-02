@@ -20,6 +20,15 @@ test('Initializes empty form', async () => {
     expect(screen.queryByTestId('error')).not.toBeInTheDocument();
 });
 
+test('Calls cancel when cancel button is clicked', () => {
+    const cancelFn = jest.fn();
+    render(<ContactModal cancel={cancelFn} />);
+
+    const cancelBtn = screen.getByText('Cancel');
+    fireEvent.click(cancelBtn);
+    expect(cancelFn).toHaveBeenCalled();
+  });
+
 test('Enable submit button until form is valid', () => {
     render(<ContactModal />);
     const nameInput = screen.getByPlaceholderText('Name');

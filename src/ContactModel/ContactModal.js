@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import styles from "./styles.module.css"
 
-export const ContactModal = ({ submit }) => {
+export const ContactModal = ({ cancel, submit }) => {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
@@ -109,6 +109,7 @@ export const ContactModal = ({ submit }) => {
                     {!!emailError && <div data-testid='error' className={styles.error}>{emailError}</div>}
                 </div>
                 <button disabled={!isValid}>Submit</button>
+                <button type="button" onClick={cancel}>Cancel</button>
             </form>
         </div>
     )
