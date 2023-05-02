@@ -12,13 +12,14 @@ export const ContactList = ({ contacts, onDeleteClick }) => (
         <div className={styles.phone}>{c.phone}</div>
         <div className={styles.email}>{c.email}</div>
 
-        <div
+        <button
+        type='button'
           className={styles.delete}
           data-testid={`delete-btn-${index}`}
           onClick={() => onDeleteClick(index)}
         >
           Delete
-        </div>
+        </button>
       </div>
     ))}
   </div>
