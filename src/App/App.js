@@ -7,8 +7,6 @@ export const App = () => {
   const [contacts, setContacts] = useState([]);
   const [addingContact, setAddingContact] = useState(false);
 
-  const [editContact, setEditContact] = useState();
-
   const deleteContact = contactIndex => {
     if (window.confirm('Are you sure?')) {
       const newContacts = contacts.filter(
@@ -50,31 +48,6 @@ export const App = () => {
         </div>
       )}
 
-      {typeof editContact === 'number' && (
-        <div className={styles.modal}>
-          <ContactModal
-            contact={contacts[editContact]}
-            cancel={() => setEditContact(undefined)}
-            submit={c => {
-              const newContacts = contacts.map((contact, index) => {
-                if (index === editContact) {
-                  return c;
-                } else {
-                  return contact;
-                }
-              });
-
-              setContacts(newContacts);
-              localStorage.setItem(
-                'contacts',
-                JSON.stringify(newContacts),
-              );
-              setEditContact(undefined);
-            }}
-          />
-        </div>
-      )}
-
       <div className={styles.main}>
         <h1>Contact List</h1>
 
@@ -91,7 +64,6 @@ export const App = () => {
         <ContactList
           contacts={contacts}
           onDeleteClick={deleteContact}
-          onEditClick={contactIndex => setEditContact(contactIndex)}
         />
       </div>
     </>

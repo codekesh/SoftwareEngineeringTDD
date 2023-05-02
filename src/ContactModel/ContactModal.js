@@ -23,7 +23,7 @@ export const ContactModal = ({ cancel, submit }) => {
         setPhoneError('')
         setEmailError('')
 
-        let _valid = (() => {
+        let valid = (() => {
             if (!name) {
                 return false
             }
@@ -59,7 +59,7 @@ export const ContactModal = ({ cancel, submit }) => {
         else if (emailDirty && !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             setEmailError('Please enter email format correctly')
         }
-        setIsValid(_valid)
+        setIsValid(valid)
     }, [name, phone, email, nameDirty, emailDirty, phoneDirty])
 
     return (
