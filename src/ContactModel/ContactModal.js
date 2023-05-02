@@ -69,7 +69,7 @@ export const ContactModal = ({ cancel, submit }) => {
                 onSubmit={e => {
                     e.preventDefault();
                     if (isValid) {
-                        submit();
+                        submit({ name, email, phone });
                     }
                 }}>
                 <div>

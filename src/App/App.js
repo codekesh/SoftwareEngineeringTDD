@@ -7,9 +7,12 @@ export const App = () => {
   return (
     <div className={styles.main}>
       {addingContact && (
-        <ContactModal cancel={()=>
-        setAddingContact(false)} 
-        submit={() => alert('Submitted')} />
+        <ContactModal cancel={() =>
+          setAddingContact(false)}
+          submit={c => {
+            console.log(c)
+            setAddingContact(false)
+          }} />
       )}
 
       <button
