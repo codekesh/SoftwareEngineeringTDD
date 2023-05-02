@@ -1,3 +1,63 @@
-.main{
-    
-}
+.main {
+    position: relative;
+    display: flex;
+  }
+  .main form {
+    padding: 25px;
+    margin: 20px;
+    background-color: #f2f3a8;
+    border-radius: 8px;
+    box-shadow: 0px 0px 3px black;
+  }
+  .main form h2 {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+  
+  .main form input {
+    margin-bottom: 20px;
+    padding: 7px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 1px gray;
+  }
+  
+  .backdrop {
+    z-index: 9;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+  
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+  .actions button {
+    flex-basis: 50%;
+    padding: 7px;
+    color: white;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .submit {
+    background-color: #343f56;
+  }
+  .submit:disabled {
+    color: gray;
+    background-color: darkgray;
+    cursor: not-allowed;
+  }
+  
+  .cancel {
+    margin-left: 40px;
+    background-color: #e9896a;
+  }

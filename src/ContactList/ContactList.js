@@ -1,6 +1,9 @@
 import styles from './styles.module.css';
 
-export const ContactList = ({ contacts, onDeleteClick }) => (
+export const ContactList = ({
+  contacts,
+  onDeleteClick,
+}) => (
   <div className={styles.main}>
     {contacts.map((c, index) => (
       <div
@@ -12,14 +15,15 @@ export const ContactList = ({ contacts, onDeleteClick }) => (
         <div className={styles.phone}>{c.phone}</div>
         <div className={styles.email}>{c.email}</div>
 
-        <button
-        type='button'
-          className={styles.delete}
+      
+
+        <div
+          className="delete"
           data-testid={`delete-btn-${index}`}
           onClick={() => onDeleteClick(index)}
         >
           Delete
-        </button>
+        </div>
       </div>
     ))}
   </div>
