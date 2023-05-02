@@ -1,6 +1,39 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { App } from './';
 
+const Keshav = {
+  name: 'Keshav',
+  email: '201117@iiitt.ac.in',
+  phone: '773-304-1963',
+};
+
+const addContact = c => {
+  const addContactBtn = screen.getByTestId('add-contact-btn');
+
+  fireEvent.click(addContactBtn);
+
+  expect(
+    screen.getByTestId('contact-modal-form'),
+  ).toBeInTheDocument();
+
+  const nameInput = screen.getByPlaceholderText('Name');
+  const phoneInput = screen.getByPlaceholderText('Phone Number');
+  const emailInput = screen.getByPlaceholderText('Email Address');
+  const form = screen.getByTestId('contact-modal-form');
+
+  fireEvent.change(nameInput, {
+    target: { value: c.name },
+  });
+  fireEvent.change(phoneInput, {
+    target: { value: c.phone },
+  });
+  fireEvent.change(emailInput, {
+    target: { value: c.email },
+  });
+
+  fireEvent.submit(form);
+};
+
 test('Shows contact modal when add contact button is clicked', () => {
   render(<App />);
 
@@ -44,30 +77,11 @@ test('Hides contact modal when cancel button is clicked', () => {
 test('Closes modal automatically after submit', () => {
   render(<App />);
 
-  expect(
-    screen.queryByTestId('contact-modal-form'),
-  ).not.toBeInTheDocument();
+  const modal = screen.queryByTestId('contact-modal-form');
 
-  const addContactBtn = screen.getByTestId('add-contact-btn');
+  expect(modal).not.toBeInTheDocument();
 
-  fireEvent.click(addContactBtn);
+  addContact(Keshav);
 
-  expect(
-    screen.queryByTestId('contact-modal-form'),
-  ).toBeInTheDocument();
-
-  const nameInput = screen.getByPlaceholderText('Name');
-  const phoneInput = screen.getByPlaceholderText('Phone Number');
-  const emailInput = screen.getByPlaceholderText('Email Address');
-  const form = screen.getByTestId('contact-modal-form')
-
-  fireEvent.change(nameInput, { target: { value: 'Codekesh' } })
-  fireEvent.change(phoneInput, { target: { value: '773-304-1963' } })
-  fireEvent.change(emailInput, { target: { value: 'keshavradhika1823@gmail.com' } })
-
-  fireEvent.submit(form);
-
-  expect(
-    screen.queryByTestId('contact-modal-form'),
-  ).not.toBeInTheDocument();
+  expect(modal).not.toBeInTheDocument();
 });

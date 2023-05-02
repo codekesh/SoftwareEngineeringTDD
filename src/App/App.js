@@ -5,7 +5,18 @@ import { useEffect, useState } from "react";
 export const App = () => {
   const [contacts, setContacts] = useState();
   const [addingContact, setAddingContact] = useState(false)
-  
+
+  // const deleteContact = contactIndex => {
+  //   if (window.confirm('Are you sure?')) {
+  //     const newContacts = contacts.filter(
+  //       (_, i) => i !== contactIndex,
+  //     );
+
+  //     setContacts(newContacts);
+  //     localStorage.setItem('contacts', JSON.stringify(newContacts));
+  //   }
+  // };
+
   useEffect(() => {
     const storedContacts = localStorage.getItem('contacts');
 
@@ -23,7 +34,7 @@ export const App = () => {
         <ContactModal cancel={() =>
           setAddingContact(false)}
           submit={c => {
-            const newContacts=[...contacts, c]
+            const newContacts = [...contacts, c]
             localStorage.setItem('contacts', JSON.stringify(newContacts))
             setAddingContact(false)
           }} />
