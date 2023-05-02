@@ -1,7 +1,5 @@
-import { render, screen, cleanup, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { ContactModal } from './';
-
-afterEach(cleanup)
 
 test('Initializes empty form', async () => {
     render(<ContactModal />);
